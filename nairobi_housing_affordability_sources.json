@@ -1,0 +1,146 @@
+[
+  {
+    "Dataset \/ Source":"KNBS \u2013 Real Estate Survey",
+    "Type":"Report (PDF)",
+    "Link":"https:\/\/www.knbs.or.ke\/reports\/2023-24-real-estate-survey-report\/",
+    "Coverage Period":"2023\u20132024",
+    "Key Variables":"Sale prices, rental rates, property types, financing",
+    "Notes":"Official survey, PDF format; limited machine-readable data"
+  },
+  {
+    "Dataset \/ Source":"KNBS \u2013 Kenya Housing Survey (KHS)",
+    "Type":"Survey \/ Excel \/ PDF",
+    "Link":"https:\/\/www.knbs.or.ke\/reports\/2023-24-kenya-housing-survey-basic-report\/",
+    "Coverage Period":"2023\u20132024",
+    "Key Variables":"Affordability metrics, housing quality, tenure, utilities",
+    "Notes":"High-quality national data; microdata access may require request"
+  },
+  {
+    "Dataset \/ Source":"CAHF \u2013 Housing Developments (Nairobi Metro)",
+    "Type":"CSV \/ Dashboard",
+    "Link":"https:\/\/housingfinanceafrica.org\/library\/housing-developments-in-the-nairobi-metropolitan-area\/",
+    "Coverage Period":"2010\u2013Present",
+    "Key Variables":"Project-level housing supply, location, project type",
+    "Notes":"Good coverage; focuses on supply side"
+  },
+  {
+    "Dataset \/ Source":"KBA \u2013 Housing Price Index",
+    "Type":"Report \/ Index (PDF)",
+    "Link":"https:\/\/www.kba.co.ke\/house-prices-drop-eases-homeownership-creates-challenges-for-developers\/",
+    "Coverage Period":"Quarterly (Recent years)",
+    "Key Variables":"Housing price index, quarterly trends",
+    "Notes":"Good trend data; aggregate index only"
+  },
+  {
+    "Dataset \/ Source":"Kaggle \u2013 Nairobi House Prices",
+    "Type":"CSV",
+    "Link":"https:\/\/www.kaggle.com\/datasets\/destro7\/nairobi-house-prices-dataset",
+    "Coverage Period":"Varies (~2019\u20132023)",
+    "Key Variables":"Property attributes: price, bedrooms, location, size",
+    "Notes":"Unofficial, community dataset; requires validation"
+  },
+  {
+    "Dataset \/ Source":"Kenya Property Centre \u2013 Market Trends",
+    "Type":"Web \/ HTML (scrapable)",
+    "Link":"https:\/\/kenyapropertycentre.com\/market-trends\/average-prices",
+    "Coverage Period":"Ongoing",
+    "Key Variables":"Average sale & rent prices by neighborhood",
+    "Notes":"Private listing data; may be biased toward formal market"
+  },
+  {
+    "Dataset \/ Source":"KNBS \u2013 KeNADA Microdata Portal",
+    "Type":"API \/ JSON \/ CSV",
+    "Link":"https:\/\/statistics.knbs.or.ke\/nada\/index.php",
+    "Coverage Period":"Various (2005\u20132023)",
+    "Key Variables":"Household income, consumption, housing costs",
+    "Notes":"Rich microdata; access often restricted"
+  },
+  {
+    "Dataset \/ Source":"World Bank \u2013 WDI (Kenya)",
+    "Type":"API \/ CSV \/ JSON",
+    "Link":"https:\/\/data.worldbank.org\/indicator\/NY.GNP.PCAP.PP.CD?locations=KE",
+    "Coverage Period":"1960\u20132024",
+    "Key Variables":"GDP, GNI per capita, poverty rates",
+    "Notes":"Country-level aggregates; no city disaggregation"
+  },
+  {
+    "Dataset \/ Source":"KIHBS \u2013 Household Budget Survey",
+    "Type":"Survey \/ CSV",
+    "Link":"https:\/\/www.knbs.or.ke\/portals\/",
+    "Coverage Period":"2005\/06, 2015\/16",
+    "Key Variables":"Household income, expenditure, rent share",
+    "Notes":"Key affordability input; limited spatial granularity"
+  },
+  {
+    "Dataset \/ Source":"FinAccess Household Survey",
+    "Type":"Survey \/ PDF \/ XLS",
+    "Link":"https:\/\/www.knbs.or.ke\/portals\/",
+    "Coverage Period":"2021",
+    "Key Variables":"Financial inclusion, income, savings, credit access",
+    "Notes":"Complementary socio-economic dataset"
+  },
+  {
+    "Dataset \/ Source":"2019 Kenya Population & Housing Census",
+    "Type":"CSV \/ Shapefile",
+    "Link":"https:\/\/open.africa\/dataset\/2019-kenya-population-and-housing-census",
+    "Coverage Period":"2019",
+    "Key Variables":"Population, households, housing conditions",
+    "Notes":"Official census; good spatial granularity"
+  },
+  {
+    "Dataset \/ Source":"Kenya Population & Household Dataset (EnergyData.info)",
+    "Type":"JSON \/ SHP",
+    "Link":"https:\/\/energydata.info\/dataset\/kenya-population-and-household-dataset",
+    "Coverage Period":"2009\u20132016",
+    "Key Variables":"Population, households, enumeration areas",
+    "Notes":"Derived dataset; good for spatial overlays"
+  },
+  {
+    "Dataset \/ Source":"Kenya Administrative Boundaries (IGISMAP)",
+    "Type":"Shapefile \/ GeoJSON",
+    "Link":"https:\/\/www.igismap.com\/kenya-shapefile-download-boundary-line-administrative-state-and-polygon\/",
+    "Coverage Period":"Current",
+    "Key Variables":"Counties, sub-counties, wards, boundaries",
+    "Notes":"Static reference spatial data"
+  },
+  {
+    "Dataset \/ Source":"KNBS GIS Census Mapping",
+    "Type":"Spatial \/ Report",
+    "Link":"https:\/\/www.knbs.or.ke\/use-of-geographic-information-system-and-geo-spatial-technology-in-managing-and-mapping-for-the-2019-kenya-population-and-housing-census\/",
+    "Coverage Period":"2019",
+    "Key Variables":"Census GIS framework and enumeration areas",
+    "Notes":"Reference for spatial consistency"
+  },
+  {
+    "Dataset \/ Source":"KNBS \u2013 Consumer Price Index (Housing Component)",
+    "Type":"CSV \/ JSON",
+    "Link":"https:\/\/nso-kenya.opendataforafrica.org\/",
+    "Coverage Period":"2000\u20132024",
+    "Key Variables":"CPI, inflation (housing, utilities)",
+    "Notes":"Official CPI; monthly updates"
+  },
+  {
+    "Dataset \/ Source":"OpenAFRICA \u2013 CPI & Cost of Living",
+    "Type":"CSV",
+    "Link":"https:\/\/open.africa\/dataset\/?q=Kenya&res_format=CSV",
+    "Coverage Period":"2018\u20132024",
+    "Key Variables":"CPI, inflation indices",
+    "Notes":"Supplementary \/ overlapping with KNBS"
+  },
+  {
+    "Dataset \/ Source":"World Bank \u2013 Inflation, PPP",
+    "Type":"API \/ CSV",
+    "Link":"https:\/\/data.worldbank.org\/?locations=KE-XN",
+    "Coverage Period":"1960\u20132024",
+    "Key Variables":"Inflation rate, PPP, real income",
+    "Notes":"Global consistency; macro-level"
+  },
+  {
+    "Dataset \/ Source":"World Bank \u2013 Spatial Housing & Poverty in Nairobi",
+    "Type":"PDF \/ XLS",
+    "Link":"https:\/\/documents1.worldbank.org\/curated\/en\/141031543263379480\/pdf\/WPS8654.pdf",
+    "Coverage Period":"2018",
+    "Key Variables":"Spatial rent models, poverty, job access",
+    "Notes":"Useful model-based spatial layer"
+  }
+]
