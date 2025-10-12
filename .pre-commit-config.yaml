@@ -1,13 +1,49 @@
-﻿repos:
+﻿# repos:
+#   - repo: https://github.com/astral-sh/ruff-pre-commit
+#     rev: v0.6.9
+#     hooks:
+#       - id: ruff
+#         args: [--fix]
+#       - id: ruff-format
+#   - repo: https://github.com/pre-commit/pre-commit-hooks
+#     rev: v4.6.0
+#     hooks:
+#       - id: end-of-file-fixer
+#       - id: trailing-whitespace
+#       - id: check-merge-conflict
+
+repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.9
+    rev: v0.14.0
     hooks:
       - id: ruff
         args: [--fix]
       - id: ruff-format
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
+      # Ensure LF endings across text files (helps on Windows)
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        types: [text]
+        # Optional: skip raw data folder
+        exclude: ^DATA/
+
+      # Ensure a single newline at EOF (text files only)
       - id: end-of-file-fixer
+        types: [text]
+        exclude: ^DATA/
+
+      # Strip trailing spaces (text files only)
       - id: trailing-whitespace
+        types: [text]
+        exclude: ^DATA/
+
+      # Catch accidental conflict markers
       - id: check-merge-conflict
+
+      # Optional: warn about huge files being added
+      # - id: check-added-large-files
+      #   args: ["--maxkb=51200"]  # 50MB
+      #   exclude: ^DATA/          # allow large raw data there

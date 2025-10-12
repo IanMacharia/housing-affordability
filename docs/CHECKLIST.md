@@ -44,4 +44,3 @@
 * [ ] Refresh process documented or scheduled
 * [ ] README with step by step reproduce guide
 * [ ] Final slides and short demo video linked
-

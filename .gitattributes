@@ -1,1 +1,19 @@
-﻿* text=auto eol=lf
+﻿# * text=auto eol=lf
+
+# Treat these as text and use LF in repo
+*.py      text eol=lf
+*.md      text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+*.toml    text eol=lf
+*.csv     text eol=lf
+*.json    text eol=lf
+*.sql     text eol=lf
+
+# Binary (never touch line endings)
+*.dta     binary
+*.pdf     binary
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.zip     binary
