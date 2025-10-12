@@ -1,18 +1,18 @@
 ﻿# Housing Affordability Dashboard
 
-An interactive dashboard exploring housing prices, rents, and incomes for African cities (starting with Nairobi).  
+An interactive dashboard exploring housing prices, rents, and incomes for African cities (starting with Nairobi).
 Tracks trends over time and highlights neighborhoods with the most affordable options.
 
 ## Quick start (local)
 
-1. **Create venv & install**  
-   \python -m venv .venv && . .\.venv\Scripts\Activate.ps1\  
+1. **Create venv & install**
+   \python -m venv .venv && . .\.venv\Scripts\Activate.ps1\
    \pip install -r requirements.txt\
 
-2. **Environment**  
+2. **Environment**
    Copy \.env.sample\ → \.env\ and set values (e.g., \APP_PORT=8501\).
 
-3. **Run**  
+3. **Run**
    \streamlit run src\App.py --server.port 8501\
 
 ## Project layout
@@ -37,3 +37,6 @@ otebooks/\ — exploration
 - [ ] Affordability index prototype
 - [ ] Deploy preview
 
+
+
+CI check: 2025-10-12T15:57:59.5923539-04:00
