@@ -22,6 +22,70 @@ Two person sprint model. Ian takes a first pass, Kate takes a first pass, then m
 
 Paste into docs/repo_map.mmd, then link it from the README.
 
+housing-affordability-dashboard/
+├─ src/                              # Core Python package
+│  ├─ utils/
+│  │  ├─ io.py                       # I/O utilities (read/write, logging, config)
+│  │  └─ geo.py                      # Spatial utilities (joins, CRS, boundaries)
+│  ├─ metrics/
+│  │  └─ affordability.py            # Core affordability metrics & formulas
+│  ├─ validation/
+│  │  └─ dq_checks.py                # Data quality & validation checks
+│  └─ __init__.py
+│
+├─ pipelines/                        # Data ingestion and ETL pipelines
+│  ├─ ingest_raw.py                  # Raw data download & snapshot saver
+│  ├─ etl_preprocess.py              # Clean, merge, and standardize datasets
+│  ├─ metrics_compute.py             # Compute derived affordability metrics
+│  └─ makefile                       # Task shortcuts (setup, run, test, deploy)
+│
+├─ notebooks/                        # Exploratory notebooks (EDA & sanity checks)
+│  ├─ explore_prices.ipynb
+│  ├─ explore_rents.ipynb
+│  └─ explore_income.ipynb
+│
+├─ app/                              # Visualization app
+│  ├─ streamlit_app.py               # Main Streamlit entry point
+│  ├─ assets/                        # Static assets (images, icons)
+│  └─ config/                        # Optional config for theme or environment
+│
+├─ data/                             # Data layers (gitignored except samples)
+│  ├─ raw/                           # Unmodified snapshots (YYYYMMDD folders)
+│  ├─ processed/                     # Cleaned and standardized datasets
+│  ├─ curated/                       # Analysis-ready datasets
+│  └─ external/                      # Boundaries & external geo files (GeoJSON, shapefiles)
+│
+├─ reports/                          # Generated outputs & visual QC
+│  ├─ profile_report.html            # Pandas profiling or summary report
+│  ├─ geo_qc.png                     # Spatial join validation map
+│  └─ screenshots/                   # Dashboard preview images
+│
+├─ docs/                             # Project documentation & guides
+│  ├─ PROJECT_PLAN.md                # End-to-end roadmap & phases
+│  ├─ CHECKLIST.md                   # Master checklist (phased tasks)
+│  ├─ brief.md                       # One-page problem & scope summary
+│  ├─ metrics.md                     # Metric definitions & formulas
+│  ├─ data_catalog.md                # Data sources & license details
+│  ├─ data_dictionary.md             # Field-level documentation
+│  ├─ geo.md                         # Boundary file details (CRS, fields)
+│  ├─ decision_log.md                # Record of team decisions
+│  ├─ RUNBOOK.md                     # How to reproduce, rebuild, and deploy
+│  └─ repo_map.mmd                   # Mermaid version of this repo tree
+│
+├─ .github/                          # GitHub management & automation
+│  ├─ ISSUE_TEMPLATE/
+│  │  └─ task.yml                    # Task issue template
+│  ├─ workflows/
+│  │  └─ ci.yml                      # Linting or smoke test workflow
+│  └─ PULL_REQUEST_TEMPLATE.md       # PR checklist
+│
+├─ requirements.txt                  # Project dependencies
+├─ CODEOWNERS                        # Repository ownership rules
+├─ README.md                         # Main project overview
+├─ LICENSE                           # License info (e.g., MIT)
+├─ .gitignore                        # Ignore data, envs, caches
+└─ .env.example                      # Example environment variables file
+
 ```mermaid
 flowchart TD
     A[repo root] --> B[docs]
@@ -115,4 +179,3 @@ Date, topic, options considered, decision, owner, rationale, follow ups.
 Data coverage gaps, mitigation: show data vintage, add disclaimers, pick alternate source if needed.
 Unstable listings data, mitigation: snapshot with date folders, keep a small local cache.
 Time creep, mitigation: keep scope to three to five key visuals, cut extras, meet weekly to unblock.
-
