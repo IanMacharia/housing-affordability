@@ -229,69 +229,68 @@ Exit criteria: data catalog with licenses and refresh cadence, raw snapshots sav
 #### Nairobi Housing Dataflow
 
 
-```
+```mermaid
 flowchart TD
+    subgraph Spatial_Base[Spatial & Demographic Base]
+    CENSUS[2019 Kenya Population & Housing Census (OpenAFRICA)]
+    BOUNDARIES[WRI / IGISMAP Administrative Boundaries]
+    end
 
-subgraph Spatial_Base[Spatial & Demographic Base]
-CENSUS[2019 Kenya Population & Housing Census (OpenAFRICA)]
-BOUNDARIES[WRI / IGISMAP Administrative Boundaries]
-end
+    subgraph Housing_Data[Housing Market & Price Data]
+    KNBS_RE[KNBS Real Estate Survey]
+    KBA[KBA Housing Price Index]
+    HASS[HassConsult Property Index]
+    KAGGLE[Kaggle Nairobi House Prices Dataset]
+    CAHF[CAHF Housing Developments]
+    end
 
-subgraph Housing_Data[Housing Market & Price Data]
-KNBS_RE[KNBS Real Estate Survey]
-KBA[KBA Housing Price Index]
-HASS[HassConsult Property Index]
-KAGGLE[Kaggle Nairobi House Prices Dataset]
-CAHF[CAHF Housing Developments]
-end
+    subgraph Income_Data[Income & Consumption Data]
+    KIHBS[Kenya Integrated Household Budget Survey (KIHBS)]
+    KENADA[KeNADA Microdata Catalog]
+    IFPRI[IFPRI Kenya Datasets]
+    end
 
-subgraph Income_Data[Income & Consumption Data]
-KIHBS[Kenya Integrated Household Budget Survey (KIHBS)]
-KENADA[KeNADA Microdata Catalog]
-IFPRI[IFPRI Kenya Datasets]
-end
+    subgraph Inflation_Data[Inflation & Deflators]
+    CPI[KNBS / NSO Kenya CPI (Housing Component)]
+    CEIC[CEIC Nairobi CPI (Housing)]
+    end
 
-subgraph Inflation_Data[Inflation & Deflators]
-CPI[KNBS / NSO Kenya CPI (Housing Component)]
-CEIC[CEIC Nairobi CPI (Housing)]
-end
+    subgraph Contextual_Data[Contextual & Enrichment Data]
+    KOD[Kenya Open Data / Knoema]
+    end
 
-subgraph Contextual_Data[Contextual & Enrichment Data]
-KOD[Kenya Open Data / Knoema]
-end
+    %% Relationships
+    CENSUS -->|Ward / Subcounty codes| KNBS_RE
+    CENSUS -->|Spatial join| KAGGLE
+    CENSUS -->|Spatial join| KIHBS
+    BOUNDARIES -->|Geometry overlay| CENSUS
+    BOUNDARIES -->|Mapping layer| KAGGLE
 
-%% Relationships
-CENSUS -->|Ward / Subcounty codes| KNBS_RE
-CENSUS -->|Spatial join| KAGGLE
-CENSUS -->|Spatial join| KIHBS
-BOUNDARIES -->|Geometry overlay| CENSUS
-BOUNDARIES -->|Mapping layer| KAGGLE
+    KIHBS -->|Income data join| KNBS_RE
+    KIHBS -->|Income vs rent| KBA
+    KIHBS -->|Income distribution| HASS
+    KENADA -->|Microdata source| KIHBS
 
-KIHBS -->|Income data join| KNBS_RE
-KIHBS -->|Income vs rent| KBA
-KIHBS -->|Income distribution| HASS
-KENADA -->|Microdata source| KIHBS
+    CPI -->|Deflate nominal values| KBA
+    CPI -->|Adjust to real prices| KNBS_RE
+    CEIC -->|City-specific deflator| KAGGLE
 
-CPI -->|Deflate nominal values| KBA
-CPI -->|Adjust to real prices| KNBS_RE
-CEIC -->|City-specific deflator| KAGGLE
+    CAHF -->|Housing supply overlay| CENSUS
+    CAHF -->|Compare with price indices| KBA
 
-CAHF -->|Housing supply overlay| CENSUS
-CAHF -->|Compare with price indices| KBA
+    KOD -->|Infrastructure, land use| CENSUS
+    KOD -->|Contextual enrichment| Housing_Data
 
-KOD -->|Infrastructure, land use| CENSUS
-KOD -->|Contextual enrichment| Housing_Data
+    %% Dashboard integration
+    subgraph Dashboard[Housing Affordability Dashboard]
+    DASH[Interactive Dashboard (Power BI / Tableau)]
+    end
 
-%% Dashboard integration
-subgraph Dashboard[Housing Affordability Dashboard]
-DASH[Interactive Dashboard (Power BI / Tableau)]
-end
-
-CENSUS --> DASH
-Housing_Data --> DASH
-Income_Data --> DASH
-Inflation_Data --> DASH
-Contextual_Data --> DASH
+    CENSUS --> DASH
+    Housing_Data --> DASH
+    Income_Data --> DASH
+    Inflation_Data --> DASH
+    Contextual_Data --> DASH
 ```
 
 ### Sprint 2, Preprocessing
