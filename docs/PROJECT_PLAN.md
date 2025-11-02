@@ -22,6 +22,7 @@ Two person sprint model. Ian takes a first pass, Kate takes a first pass, then m
 
 Paste into docs/repo_map.mmd, then link it from the README.
 
+```
 housing-affordability-dashboard/
 ├─ src/                              # Core Python package
 │  ├─ utils/
@@ -85,6 +86,79 @@ housing-affordability-dashboard/
 ├─ LICENSE                           # License info (e.g., MIT)
 ├─ .gitignore                        # Ignore data, envs, caches
 └─ .env.example                      # Example environment variables file
+```
+### version 2
+```
+housing-affordability-dashboard/
+├─ src/
+│  ├─ data/
+│  │  ├─ __init__.py
+│  │  └─ knbs_housing.py           # ← loaders + merge logic (build_core_dataset)
+│  ├─ metrics/
+│  │  └─ affordability.py          # pure functions to add derived metrics
+│  ├─ utils/
+│  │  ├─ io.py                     # ensure_dir, read_stata wrapper, write_parquet
+│  │  └─ geo.py                    # county name/code normalization, boundary joins
+│  ├─ validation/
+│  │  └─ dq_checks.py              # data quality & sanity checks
+│  └─ __init__.py
+│
+├─ pipelines/
+│  ├─ ingest_raw.py                # (optional) copy/snapshot KNBS .dta into data/raw/YYYYMMDD
+│  ├─ etl_preprocess.py            # calls src.data.knbs_housing → writes data/processed/
+│  ├─ metrics_compute.py           # adds affordability columns → writes data/curated/
+│  └─ makefile                     # (optional) per-dir make, kept for now
+│
+├─ app/
+│  ├─ streamlit_app.py             # Streamlit entrypoint (reads data/curated/)
+│  ├─ assets/
+│  └─ config/
+│
+├─ notebooks/
+│  ├─ explore_prices.ipynb
+│  ├─ explore_rents.ipynb
+│  └─ explore_income.ipynb
+│
+├─ data/
+│  ├─ raw/
+│  │  ├─ 2025-10-12/               # date-stamped snapshot of .dta files (gitignored)
+│  │  └─ latest/                   # convenience copy of current snapshot (folder or symlink)
+│  ├─ processed/                   # merged, cleaned intermediate outputs
+│  ├─ curated/                     # analysis-ready fact tables for viz
+│  └─ external/                    # boundaries/geojson/shapefiles
+│
+├─ reports/
+│  ├─ profile_report.html
+│  ├─ geo_qc.png
+│  └─ screenshots/
+│
+├─ docs/
+│  ├─ PROJECT_PLAN.md
+│  ├─ CHECKLIST.md
+│  ├─ brief.md
+│  ├─ metrics.md
+│  ├─ data_catalog.md
+│  ├─ data_dictionary.md
+│  ├─ geo.md
+│  ├─ decision_log.md
+│  ├─ RUNBOOK.md
+│  └─ repo_map.mmd
+│
+├─ .github/
+│  ├─ ISSUE_TEMPLATE/
+│  │  └─ task.yml
+│  ├─ workflows/
+│  │  └─ ci.yml
+│  └─ PULL_REQUEST_TEMPLATE.md
+│
+├─ Makefile                        # ← root shortcuts: ingest, preprocess, metrics, app
+├─ requirements.txt
+├─ CODEOWNERS
+├─ README.md
+├─ LICENSE
+├─ .gitignore
+└─ .env.example
+```
 
 ```mermaid
 flowchart TD
@@ -151,6 +225,74 @@ Exit criteria: one page brief, chosen city, metric list with formulas, acceptanc
 
 ### Sprint 1, Data sourcing
 Exit criteria: data catalog with licenses and refresh cadence, raw snapshots saved with date folders, ingestion scripts run locally end to end.
+
+#### Nairobi Housing Dataflow
+
+
+```
+flowchart TD
+
+subgraph Spatial_Base[Spatial & Demographic Base]
+CENSUS[2019 Kenya Population & Housing Census (OpenAFRICA)]
+BOUNDARIES[WRI / IGISMAP Administrative Boundaries]
+end
+
+subgraph Housing_Data[Housing Market & Price Data]
+KNBS_RE[KNBS Real Estate Survey]
+KBA[KBA Housing Price Index]
+HASS[HassConsult Property Index]
+KAGGLE[Kaggle Nairobi House Prices Dataset]
+CAHF[CAHF Housing Developments]
+end
+
+subgraph Income_Data[Income & Consumption Data]
+KIHBS[Kenya Integrated Household Budget Survey (KIHBS)]
+KENADA[KeNADA Microdata Catalog]
+IFPRI[IFPRI Kenya Datasets]
+end
+
+subgraph Inflation_Data[Inflation & Deflators]
+CPI[KNBS / NSO Kenya CPI (Housing Component)]
+CEIC[CEIC Nairobi CPI (Housing)]
+end
+
+subgraph Contextual_Data[Contextual & Enrichment Data]
+KOD[Kenya Open Data / Knoema]
+end
+
+%% Relationships
+CENSUS -->|Ward / Subcounty codes| KNBS_RE
+CENSUS -->|Spatial join| KAGGLE
+CENSUS -->|Spatial join| KIHBS
+BOUNDARIES -->|Geometry overlay| CENSUS
+BOUNDARIES -->|Mapping layer| KAGGLE
+
+KIHBS -->|Income data join| KNBS_RE
+KIHBS -->|Income vs rent| KBA
+KIHBS -->|Income distribution| HASS
+KENADA -->|Microdata source| KIHBS
+
+CPI -->|Deflate nominal values| KBA
+CPI -->|Adjust to real prices| KNBS_RE
+CEIC -->|City-specific deflator| KAGGLE
+
+CAHF -->|Housing supply overlay| CENSUS
+CAHF -->|Compare with price indices| KBA
+
+KOD -->|Infrastructure, land use| CENSUS
+KOD -->|Contextual enrichment| Housing_Data
+
+%% Dashboard integration
+subgraph Dashboard[Housing Affordability Dashboard]
+DASH[Interactive Dashboard (Power BI / Tableau)]
+end
+
+CENSUS --> DASH
+Housing_Data --> DASH
+Income_Data --> DASH
+Inflation_Data --> DASH
+Contextual_Data --> DASH
+```
 
 ### Sprint 2, Preprocessing
 Exit criteria: tidy tables ready for analysis, geographic joins validated, currency and inflation adjustments documented, data profile report generated.
